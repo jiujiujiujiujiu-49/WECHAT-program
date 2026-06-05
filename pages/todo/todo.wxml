@@ -1,14 +1,36 @@
-<view class="page">
+<view class="page" wx:if="{{record}}">
   <view class="page-head">
     <view class="heading">Daily To Do List</view>
-    <view class="subtext">这里后续新增、勾选和删除今日任务。</view>
+    <view class="subtext">今日任务 {{totalCount}} 个，已完成 {{doneCount}} 个。</view>
   </view>
 
   <view class="section">
-    <view class="section-title">待办占位</view>
-    <view class="todo-item" wx:for="{{examples}}" wx:key="*this">
-      <checkbox disabled="true" />
-      <text class="todo-text">{{item}}</text>
+    <view class="summary-row">
+      <view>
+        <view class="summary-label">完成进度</view>
+        <view class="summary-value">{{progressText}}</view>
+      </view>
+      <view class="summary-pill">{{doneCount}} / {{totalCount}}</view>
+    </view>
+  </view>
+
+  <view class="section">
+    <view class="section-title">新增任务</view>
+    <view class="add-row">
+      <input class="todo-input" value="{{newTodo}}" bindinput="updateNewTodo" placeholder="输入今天要完成的事" maxlength="60" />
+      <button class="add-btn" bindtap="addTodo">添加</button>
+    </view>
+  </view>
+
+  <view class="section">
+    <view class="section-title">今日待办</view>
+    <view wx:if="{{record.todos.length === 0}}" class="empty">今天还没有待办事项</view>
+    <view wx:for="{{record.todos}}" wx:key="id" class="todo-item">
+      <view class="todo-main" data-id="{{item.id}}" bindtap="toggleTodo">
+        <checkbox checked="{{item.done}}" color="#26734d" />
+        <text class="{{item.done ? 'todo-text done' : 'todo-text'}}">{{item.text}}</text>
+      </view>
+      <button class="delete-btn" data-id="{{item.id}}" catchtap="deleteTodo">删除</button>
     </view>
   </view>
 </view>
