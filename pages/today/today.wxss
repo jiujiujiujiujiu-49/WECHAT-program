@@ -1,0 +1,34 @@
+.page-head {
+  padding: 16rpx 4rpx 26rpx;
+}
+
+.heading {
+  color: #183527;
+  font-size: 42rpx;
+  font-weight: 800;
+}
+
+.subtext {
+  margin-top: 8rpx;
+  color: #6f7c72;
+  font-size: 26rpx;
+}
+
+.module-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 80rpx;
+  border-bottom: 1rpx solid #edf2ee;
+  color: #1f2d24;
+  font-size: 28rpx;
+}
+
+.module-row:last-child {
+  border-bottom: 0;
+}
+
+.status {
+  color: #6f7c72;
+  font-size: 24rpx;
+}
