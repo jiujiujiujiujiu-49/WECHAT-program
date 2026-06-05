@@ -2,8 +2,17 @@ const assert = require('assert');
 
 const { createDefaultRecord, mergeWithDefaultRecord } = require('../utils/record');
 const { sanitizeNumber, sanitizeText } = require('../utils/validate');
+const storage = require('../utils/storage');
 
 function run() {
+  const storageData = {};
+  global.wx = {
+    getStorageSync: (key) => storageData[key],
+    setStorageSync: (key, value) => {
+      storageData[key] = value;
+    }
+  };
+
   const today = createDefaultRecord('2026-06-05');
   assert.strictEqual(today.date, '2026-06-05');
   assert.deepStrictEqual(today.water, { amount: 0, target: 2000 });
@@ -25,6 +34,27 @@ function run() {
   assert.strictEqual(sanitizeNumber('abc', 5), 5);
   assert.strictEqual(sanitizeText('  hello  ', 10), 'hello');
   assert.strictEqual(sanitizeText('abcdefghijkl', 5), 'abcde');
+
+  const emptyRecord = storage.getRecordByDate('2026-06-05');
+  assert.deepStrictEqual(emptyRecord, today);
+  assert.deepStrictEqual(storageData['daily-record-2026-06-05'], today);
+
+  const updatedRecord = storage.saveRecordByDate('2026-06-05', {
+    water: { amount: 800 },
+    workout: { checked: true },
+    todos: [
+      { id: '1', text: 'drink water', done: true },
+      { id: '2', text: 'study', done: false }
+    ]
+  });
+  assert.strictEqual(updatedRecord.date, '2026-06-05');
+  assert.strictEqual(updatedRecord.water.amount, 800);
+  assert.strictEqual(updatedRecord.water.target, 2000);
+  assert.strictEqual(updatedRecord.workout.checked, true);
+  assert.strictEqual(storage.getRecordByDate('2026-06-05').todos.length, 2);
+
+  const todayDate = storage.getTodayDate();
+  assert.match(todayDate, /^\d{4}-\d{2}-\d{2}$/);
 }
 
 run();
