@@ -1,7 +1,7 @@
 {
   "pages": [
     "pages/index/index",
-    "pages/record/record",
+    "pages/today/today",
     "pages/todo/todo",
     "pages/history/history"
   ],
@@ -22,8 +22,8 @@
         "text": "首页"
       },
       {
-        "pagePath": "pages/record/record",
-        "text": "记录"
+        "pagePath": "pages/today/today",
+        "text": "今日"
       },
       {
         "pagePath": "pages/todo/todo",
