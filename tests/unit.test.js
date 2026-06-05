@@ -21,6 +21,9 @@ function run() {
     setStorageSync: (key, value) => {
       storageData[key] = value;
     },
+    getStorageInfoSync: () => ({
+      keys: Object.keys(storageData)
+    }),
     showToast: (options) => {
       toastTitle = options.title;
     }
@@ -132,6 +135,46 @@ function run() {
   todoPage.deleteTodo({ currentTarget: { dataset: { id: todoId } } });
   assert.strictEqual(todoPage.data.record.todos.length, 2);
   assert.strictEqual(storageData['daily-record-' + todayDate].todos.length, 2);
+
+  storageData['daily-record-2026-06-03'] = storage.createDefaultRecord('2026-06-03');
+  storageData['daily-record-2026-06-04'] = storage.saveRecordByDate('2026-06-04', {
+    water: { amount: 1500 },
+    workout: { checked: true, type: '跑步', duration: 30 },
+    study: { checked: true, content: '英语', duration: 45 },
+    meals: { breakfast: '粥', lunch: '面', dinner: '饭', snack: '水果' },
+    sleep: { hours: 7, quality: '好' },
+    todos: [
+      { id: 'a', text: '读书', done: true },
+      { id: 'b', text: '运动', done: false }
+    ]
+  });
+  storageData['other-key'] = { ignored: true };
+
+  const allRecords = storage.getAllRecords();
+  assert.strictEqual(allRecords[0].date >= allRecords[1].date, true);
+  assert.strictEqual(allRecords.some((record) => record.date === undefined), false);
+  assert.strictEqual(allRecords.find((record) => record.date === '2026-06-04').water.amount, 1500);
+
+  let historyPage = null;
+  global.Page = (config) => {
+    historyPage = config;
+  };
+  delete require.cache[require.resolve('../pages/history/history')];
+  require('../pages/history/history');
+
+  historyPage.data = JSON.parse(JSON.stringify(historyPage.data));
+  historyPage.setData = (updates) => {
+    Object.keys(updates).forEach((path) => setByPath(historyPage.data, path, updates[path]));
+  };
+
+  historyPage.onLoad();
+  assert.strictEqual(historyPage.data.records[0].date, todayDate);
+  assert.strictEqual(historyPage.data.records[1].date, '2026-06-04');
+  assert.strictEqual(historyPage.data.records[1].todoSummary, '1 / 2');
+  assert.strictEqual(historyPage.data.records[1].expanded, false);
+
+  historyPage.toggleRecord({ currentTarget: { dataset: { date: '2026-06-04' } } });
+  assert.strictEqual(historyPage.data.records[1].expanded, true);
 }
 
 run();
