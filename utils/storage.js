@@ -65,11 +65,30 @@ function saveTodayRecord(record) {
   return saveRecordByDate(getTodayDate(), record);
 }
 
+function getAllRecords() {
+  var info = wx.getStorageInfoSync();
+  var keys = Array.isArray(info.keys) ? info.keys : [];
+
+  return keys
+    .filter(function(key) {
+      return key.indexOf('daily-record-') === 0;
+    })
+    .map(function(key) {
+      return key.replace('daily-record-', '');
+    })
+    .sort()
+    .reverse()
+    .map(function(date) {
+      return getRecordByDate(date);
+    });
+}
+
 module.exports = {
   getTodayDate: getTodayDate,
   getRecordByDate: getRecordByDate,
   saveRecordByDate: saveRecordByDate,
   getTodayRecord: getTodayRecord,
   saveTodayRecord: saveTodayRecord,
-  createDefaultRecord: createDefaultRecord
+  createDefaultRecord: createDefaultRecord,
+  getAllRecords: getAllRecords
 };
