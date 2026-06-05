@@ -1,49 +1,17 @@
 <view class="page">
   <view class="hero">
-    <view class="date">{{today}}</view>
-    <view class="title">今日记录</view>
-    <view class="subtitle">把今天照顾好，一天一条就够。</view>
-  </view>
-
-  <view class="section" wx:if="{{record}}">
-    <view class="section-title">今日概览</view>
-    <view class="progress-row">
-      <view>
-        <view class="metric-label">饮水</view>
-        <view class="metric-value">{{record.water.amount}}ml / {{record.water.target}}ml</view>
-      </view>
-      <view class="percent">{{waterPercent}}%</view>
-    </view>
-    <view class="progress-track">
-      <view class="progress-fill" style="width: {{waterPercent}}%;"></view>
-    </view>
-
-    <view class="grid">
-      <view class="overview-item">
-        <view class="metric-label">健身</view>
-        <view class="metric-value">{{record.workout.checked ? '已打卡' : '未打卡'}}</view>
-      </view>
-      <view class="overview-item">
-        <view class="metric-label">学习</view>
-        <view class="metric-value">{{record.study.checked ? '已打卡' : '未打卡'}}</view>
-      </view>
-      <view class="overview-item">
-        <view class="metric-label">睡眠</view>
-        <view class="metric-value">{{record.sleep.hours}} 小时</view>
-      </view>
-      <view class="overview-item">
-        <view class="metric-label">待办</view>
-        <view class="metric-value">{{todoSummary}}</view>
-      </view>
-    </view>
+    <view class="title">每日记录</view>
+    <view class="subtitle">Daily todo、健康和学习打卡的小程序骨架。</view>
   </view>
 
   <view class="section">
-    <view class="section-title">快速入口</view>
-    <view class="actions">
-      <button class="secondary-btn" bindtap="goRecord">填写今日记录</button>
-      <button class="secondary-btn" bindtap="goTodo">管理待办</button>
-      <button class="secondary-btn" bindtap="goHistory">查看历史</button>
+    <view class="section-title">首页</view>
+    <view class="muted">这里后续展示今天的记录概览和快速入口。</view>
+    <view class="card-list">
+      <view class="placeholder-card" wx:for="{{cards}}" wx:key="title">
+        <view class="card-title">{{item.title}}</view>
+        <view class="card-desc">{{item.desc}}</view>
+      </view>
     </view>
   </view>
 </view>
