@@ -3,11 +3,6 @@
   padding: 36rpx 4rpx 18rpx;
 }
 
-.date {
-  color: #557063;
-  font-size: 26rpx;
-}
-
 .title {
   margin-top: 8rpx;
   font-size: 48rpx;
@@ -21,58 +16,27 @@
   font-size: 28rpx;
 }
 
-.progress-row {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-
-.metric-label {
-  color: #6f7c72;
-  font-size: 24rpx;
-}
-
-.metric-value {
-  margin-top: 6rpx;
-  color: #1f2d24;
-  font-size: 30rpx;
-  font-weight: 700;
-}
-
-.percent {
-  color: #26734d;
-  font-size: 34rpx;
-  font-weight: 800;
-}
-
-.progress-track {
-  height: 18rpx;
-  margin: 22rpx 0 26rpx;
-  overflow: hidden;
-  background: #e7efe9;
-  border-radius: 8rpx;
-}
-
-.progress-fill {
-  height: 100%;
-  background: #2e8b57;
-  border-radius: 8rpx;
-}
-
-.grid {
+.card-list {
   display: grid;
-  grid-template-columns: 1fr 1fr;
   gap: 16rpx;
+  margin-top: 24rpx;
 }
 
-.overview-item {
+.placeholder-card {
   padding: 20rpx;
   background: #f8faf8;
   border: 1rpx solid #e1e9e2;
   border-radius: 8rpx;
 }
 
-.actions {
-  display: grid;
-  gap: 16rpx;
+.card-title {
+  color: #1e3a2b;
+  font-size: 30rpx;
+  font-weight: 700;
+}
+
+.card-desc {
+  margin-top: 8rpx;
+  color: #6f7c72;
+  font-size: 26rpx;
 }
