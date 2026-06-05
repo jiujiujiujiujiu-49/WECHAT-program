@@ -16,27 +16,31 @@
   font-size: 28rpx;
 }
 
-.card-list {
+.overview-grid {
   display: grid;
+  grid-template-columns: 1fr 1fr;
   gap: 16rpx;
-  margin-top: 24rpx;
 }
 
-.placeholder-card {
+.overview-card {
   padding: 20rpx;
   background: #f8faf8;
   border: 1rpx solid #e1e9e2;
   border-radius: 8rpx;
 }
 
-.card-title {
+.overview-card.full {
+  grid-column: 1 / -1;
+}
+
+.label {
+  color: #6f7c72;
+  font-size: 24rpx;
+}
+
+.value {
+  margin-top: 8rpx;
   color: #1e3a2b;
   font-size: 30rpx;
   font-weight: 700;
-}
-
-.card-desc {
-  margin-top: 8rpx;
-  color: #6f7c72;
-  font-size: 26rpx;
 }
