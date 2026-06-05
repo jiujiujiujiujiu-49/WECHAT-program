@@ -14,21 +14,49 @@
   font-size: 26rpx;
 }
 
-.module-row {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  min-height: 80rpx;
-  border-bottom: 1rpx solid #edf2ee;
+.field {
+  margin-bottom: 20rpx;
+}
+
+.field:last-child {
+  margin-bottom: 0;
+}
+
+.label {
+  display: block;
+  margin-bottom: 10rpx;
+  color: #405247;
+  font-size: 26rpx;
+}
+
+.input,
+.picker {
+  width: 100%;
+  min-height: 76rpx;
+  padding: 18rpx 20rpx;
+  background: #f8faf8;
+  border: 1rpx solid #dce7de;
+  border-radius: 8rpx;
   color: #1f2d24;
   font-size: 28rpx;
 }
 
-.module-row:last-child {
-  border-bottom: 0;
+.target-text {
+  color: #26734d;
+  font-size: 26rpx;
 }
 
-.status {
-  color: #6f7c72;
-  font-size: 24rpx;
+.switch-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 76rpx;
+  margin-bottom: 20rpx;
+  color: #405247;
+  font-size: 28rpx;
+}
+
+.save-btn {
+  margin-top: 12rpx;
+  margin-bottom: 36rpx;
 }
