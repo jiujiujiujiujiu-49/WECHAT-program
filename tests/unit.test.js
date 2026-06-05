@@ -98,6 +98,40 @@ function run() {
   todayPage.saveRecord();
   assert.strictEqual(toastTitle, '已保存');
   assert.strictEqual(storageData['daily-record-' + todayDate].water.amount, 1200);
+
+  let todoPage = null;
+  global.Page = (config) => {
+    todoPage = config;
+  };
+  delete require.cache[require.resolve('../pages/todo/todo')];
+  require('../pages/todo/todo');
+
+  todoPage.data = JSON.parse(JSON.stringify(todoPage.data));
+  todoPage.setData = (updates) => {
+    Object.keys(updates).forEach((path) => setByPath(todoPage.data, path, updates[path]));
+  };
+
+  todoPage.onLoad();
+  assert.strictEqual(todoPage.data.totalCount, 2);
+  assert.strictEqual(todoPage.data.doneCount, 1);
+  assert.strictEqual(todoPage.data.progressText, '1 / 2');
+
+  todoPage.updateNewTodo({ detail: { value: '  写周计划  ' } });
+  todoPage.addTodo();
+  assert.strictEqual(todoPage.data.record.todos.length, 3);
+  assert.strictEqual(todoPage.data.record.todos[0].text, '写周计划');
+  assert.strictEqual(todoPage.data.record.todos[0].done, false);
+  assert.strictEqual(storageData['daily-record-' + todayDate].todos.length, 3);
+
+  const todoId = todoPage.data.record.todos[0].id;
+  todoPage.toggleTodo({ currentTarget: { dataset: { id: todoId } } });
+  assert.strictEqual(todoPage.data.record.todos[0].done, true);
+  assert.strictEqual(todoPage.data.doneCount, 2);
+  assert.strictEqual(todoPage.data.progressText, '2 / 3');
+
+  todoPage.deleteTodo({ currentTarget: { dataset: { id: todoId } } });
+  assert.strictEqual(todoPage.data.record.todos.length, 2);
+  assert.strictEqual(storageData['daily-record-' + todayDate].todos.length, 2);
 }
 
 run();
