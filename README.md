@@ -23,6 +23,7 @@
 - `pages/*/*.wxml`：页面结构。
 - `pages/*/*.wxss`：页面局部样式。
 - `pages/*/*.js`：页面数据和生命周期逻辑。
+- `utils/storage.js`：本地存储模块，按 `daily-record-YYYY-MM-DD` 保存每天的数据。
 
 ## 在微信开发者工具中运行
 
