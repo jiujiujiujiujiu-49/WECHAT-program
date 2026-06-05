@@ -1,11 +1,64 @@
 <view class="page">
   <view class="page-head">
     <view class="heading">历史记录</view>
-    <view class="subtext">这里后续按日期查看过去记录。</view>
+    <view class="subtext">按日期查看每日记录，最新日期在最上面。</view>
   </view>
 
-  <view class="section">
+  <view class="section" wx:if="{{records.length === 0}}">
     <view class="section-title">历史列表</view>
     <view class="empty">{{emptyText}}</view>
+  </view>
+
+  <view wx:else>
+    <view wx:for="{{records}}" wx:key="date" class="history-card">
+      <view class="card-head" data-date="{{item.date}}" bindtap="toggleRecord">
+        <view>
+          <view class="date">{{item.date}}</view>
+          <view class="summary">待办 {{item.todoSummary}}</view>
+        </view>
+        <view class="expand-text">{{item.expanded ? '收起' : '展开'}}</view>
+      </view>
+
+      <view class="metric-grid">
+        <view class="metric">
+          <text class="metric-label">饮水量</text>
+          <text class="metric-value">{{item.water.amount}} / {{item.water.target}} ml</text>
+        </view>
+        <view class="metric">
+          <text class="metric-label">健身</text>
+          <text class="metric-value">{{item.workout.checked ? '已完成' : '未完成'}}</text>
+        </view>
+        <view class="metric">
+          <text class="metric-label">学习</text>
+          <text class="metric-value">{{item.study.checked ? '已完成' : '未完成'}}</text>
+        </view>
+        <view class="metric">
+          <text class="metric-label">睡眠</text>
+          <text class="metric-value">{{item.sleep.hours}} 小时</text>
+        </view>
+      </view>
+
+      <view wx:if="{{item.expanded}}" class="detail">
+        <view class="detail-title">饮食记录</view>
+        <view class="detail-row"><text>早餐</text><text>{{item.meals.breakfast || '未填写'}}</text></view>
+        <view class="detail-row"><text>午餐</text><text>{{item.meals.lunch || '未填写'}}</text></view>
+        <view class="detail-row"><text>晚餐</text><text>{{item.meals.dinner || '未填写'}}</text></view>
+        <view class="detail-row"><text>加餐</text><text>{{item.meals.snack || '未填写'}}</text></view>
+
+        <view class="detail-title">健身记录</view>
+        <view class="detail-row"><text>类型</text><text>{{item.workout.type || '未填写'}}</text></view>
+        <view class="detail-row"><text>时长</text><text>{{item.workout.duration}} 分钟</text></view>
+
+        <view class="detail-title">学习记录</view>
+        <view class="detail-row"><text>内容</text><text>{{item.study.content || '未填写'}}</text></view>
+        <view class="detail-row"><text>时长</text><text>{{item.study.duration}} 分钟</text></view>
+
+        <view class="detail-title">待办列表</view>
+        <view wx:if="{{item.todos.length === 0}}" class="empty small">无待办</view>
+        <view wx:for="{{item.todos}}" wx:for-item="todo" wx:key="id" class="todo-row">
+          <text class="{{todo.done ? 'todo-done' : ''}}">{{todo.done ? '✓' : '○'}} {{todo.text}}</text>
+        </view>
+      </view>
+    </view>
   </view>
 </view>
