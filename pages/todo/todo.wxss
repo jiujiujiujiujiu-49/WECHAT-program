@@ -15,6 +15,70 @@
   font-size: 26rpx;
 }
 
+.summary-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.summary-label {
+  color: #6f7c72;
+  font-size: 24rpx;
+}
+
+.summary-value {
+  margin-top: 8rpx;
+  color: #183527;
+  font-size: 40rpx;
+  font-weight: 800;
+}
+
+.summary-pill {
+  min-width: 120rpx;
+  padding: 12rpx 18rpx;
+  border-radius: 8rpx;
+  background: #e7f2eb;
+  color: #26734d;
+  font-size: 28rpx;
+  font-weight: 700;
+  text-align: center;
+}
+
+.add-row {
+  display: flex;
+  gap: 16rpx;
+  align-items: center;
+}
+
+.todo-input {
+  flex: 1;
+  min-width: 0;
+  height: 76rpx;
+  padding: 0 20rpx;
+  background: #f8faf8;
+  border: 1rpx solid #dce7de;
+  border-radius: 8rpx;
+  color: #1f2d24;
+  font-size: 28rpx;
+}
+
+.add-btn {
+  width: 150rpx;
+  height: 76rpx;
+  line-height: 76rpx;
+  border-radius: 8rpx;
+  background: #26734d;
+  color: #ffffff;
+  font-size: 28rpx;
+}
+
+.empty {
+  padding: 32rpx 0;
+  color: #6f7c72;
+  font-size: 28rpx;
+  text-align: center;
+}
+
 .todo-item {
   display: flex;
   align-items: center;
@@ -28,10 +92,33 @@
   border-bottom: 0;
 }
 
+.todo-main {
+  display: flex;
+  flex: 1;
+  align-items: center;
+  min-width: 0;
+}
+
 .todo-text {
   flex: 1;
   margin-left: 14rpx;
   color: #1f2d24;
   font-size: 30rpx;
   word-break: break-all;
+}
+
+.todo-text.done {
+  color: #8b9990;
+  text-decoration: line-through;
+}
+
+.delete-btn {
+  width: 118rpx;
+  height: 64rpx;
+  line-height: 64rpx;
+  margin-left: 16rpx;
+  border-radius: 8rpx;
+  background: #f8e7e4;
+  color: #a23b2a;
+  font-size: 26rpx;
 }
