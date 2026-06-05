@@ -4,12 +4,25 @@ const { createDefaultRecord, mergeWithDefaultRecord } = require('../utils/record
 const { sanitizeNumber, sanitizeText } = require('../utils/validate');
 const storage = require('../utils/storage');
 
+function setByPath(target, path, value) {
+  const parts = path.split('.');
+  let cursor = target;
+  for (let index = 0; index < parts.length - 1; index += 1) {
+    cursor = cursor[parts[index]];
+  }
+  cursor[parts[parts.length - 1]] = value;
+}
+
 function run() {
   const storageData = {};
+  let toastTitle = '';
   global.wx = {
     getStorageSync: (key) => storageData[key],
     setStorageSync: (key, value) => {
       storageData[key] = value;
+    },
+    showToast: (options) => {
+      toastTitle = options.title;
     }
   };
 
@@ -55,6 +68,36 @@ function run() {
 
   const todayDate = storage.getTodayDate();
   assert.match(todayDate, /^\d{4}-\d{2}-\d{2}$/);
+
+  let todayPage = null;
+  global.Page = (config) => {
+    todayPage = config;
+  };
+  delete require.cache[require.resolve('../pages/today/today')];
+  require('../pages/today/today');
+
+  todayPage.data = JSON.parse(JSON.stringify(todayPage.data));
+  todayPage.setData = (updates) => {
+    Object.keys(updates).forEach((path) => setByPath(todayPage.data, path, updates[path]));
+  };
+
+  todayPage.onLoad();
+  assert.strictEqual(todayPage.data.record.date, todayDate);
+
+  todayPage.updateNumber({ currentTarget: { dataset: { path: 'water.amount' } }, detail: { value: '1200' } });
+  todayPage.updateSwitch({ currentTarget: { dataset: { path: 'workout.checked' } }, detail: { value: true } });
+  todayPage.updateField({ currentTarget: { dataset: { path: 'meals.breakfast' } }, detail: { value: '鸡蛋和牛奶' } });
+  todayPage.updateQuality({ detail: { value: 1 } });
+
+  assert.strictEqual(todayPage.data.record.water.amount, 1200);
+  assert.strictEqual(typeof todayPage.data.record.water.amount, 'number');
+  assert.strictEqual(todayPage.data.record.workout.checked, true);
+  assert.strictEqual(todayPage.data.record.meals.breakfast, '鸡蛋和牛奶');
+  assert.strictEqual(todayPage.data.record.sleep.quality, '一般');
+
+  todayPage.saveRecord();
+  assert.strictEqual(toastTitle, '已保存');
+  assert.strictEqual(storageData['daily-record-' + todayDate].water.amount, 1200);
 }
 
 run();
