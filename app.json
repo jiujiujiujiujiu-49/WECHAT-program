@@ -1,0 +1,39 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/record/record",
+    "pages/todo/todo",
+    "pages/history/history"
+  ],
+  "window": {
+    "navigationBarTitleText": "每日记录",
+    "navigationBarBackgroundColor": "#f8fbf8",
+    "navigationBarTextStyle": "black",
+    "backgroundColor": "#f4f7f4"
+  },
+  "tabBar": {
+    "color": "#6f7c72",
+    "selectedColor": "#26734d",
+    "backgroundColor": "#ffffff",
+    "borderStyle": "white",
+    "list": [
+      {
+        "pagePath": "pages/index/index",
+        "text": "首页"
+      },
+      {
+        "pagePath": "pages/record/record",
+        "text": "记录"
+      },
+      {
+        "pagePath": "pages/todo/todo",
+        "text": "待办"
+      },
+      {
+        "pagePath": "pages/history/history",
+        "text": "历史"
+      }
+    ]
+  },
+  "style": "v2"
+}

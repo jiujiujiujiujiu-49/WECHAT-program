@@ -1,0 +1,86 @@
+<view class="page" wx:if="{{record}}">
+  <view class="page-head">
+    <view class="date">{{today}}</view>
+    <view class="heading">填写今日记录</view>
+  </view>
+
+  <view class="section">
+    <view class="section-title">饮水</view>
+    <view class="field">
+      <text class="label">今日饮水量 ml</text>
+      <input class="input" type="number" value="{{record.water.amount}}" data-path="water.amount" bindinput="updateField" placeholder="例如 1200" />
+    </view>
+    <view class="field">
+      <text class="label">目标 ml</text>
+      <input class="input" type="number" value="{{record.water.target}}" data-path="water.target" bindinput="updateField" placeholder="默认 2000" />
+    </view>
+  </view>
+
+  <view class="section">
+    <view class="section-title">健身打卡</view>
+    <view class="switch-row">
+      <text>今日是否健身</text>
+      <switch checked="{{record.workout.checked}}" data-path="workout.checked" bindchange="updateSwitch" color="#26734d" />
+    </view>
+    <view class="field">
+      <text class="label">运动类型</text>
+      <input class="input" value="{{record.workout.type}}" data-path="workout.type" bindinput="updateField" placeholder="跑步、力量、瑜伽..." />
+    </view>
+    <view class="field">
+      <text class="label">运动时长 分钟</text>
+      <input class="input" type="number" value="{{record.workout.duration}}" data-path="workout.duration" bindinput="updateField" placeholder="例如 30" />
+    </view>
+  </view>
+
+  <view class="section">
+    <view class="section-title">学习打卡</view>
+    <view class="switch-row">
+      <text>今日是否学习</text>
+      <switch checked="{{record.study.checked}}" data-path="study.checked" bindchange="updateSwitch" color="#26734d" />
+    </view>
+    <view class="field">
+      <text class="label">学习内容</text>
+      <input class="input" value="{{record.study.content}}" data-path="study.content" bindinput="updateField" placeholder="课程、读书、项目..." />
+    </view>
+    <view class="field">
+      <text class="label">学习时长 分钟</text>
+      <input class="input" type="number" value="{{record.study.duration}}" data-path="study.duration" bindinput="updateField" placeholder="例如 60" />
+    </view>
+  </view>
+
+  <view class="section">
+    <view class="section-title">饮食记录</view>
+    <view class="field">
+      <text class="label">早餐</text>
+      <textarea class="textarea" value="{{record.meals.breakfast}}" data-path="meals.breakfast" bindinput="updateField" placeholder="写下早餐" />
+    </view>
+    <view class="field">
+      <text class="label">午餐</text>
+      <textarea class="textarea" value="{{record.meals.lunch}}" data-path="meals.lunch" bindinput="updateField" placeholder="写下午餐" />
+    </view>
+    <view class="field">
+      <text class="label">晚餐</text>
+      <textarea class="textarea" value="{{record.meals.dinner}}" data-path="meals.dinner" bindinput="updateField" placeholder="写下晚餐" />
+    </view>
+    <view class="field">
+      <text class="label">加餐</text>
+      <textarea class="textarea" value="{{record.meals.snack}}" data-path="meals.snack" bindinput="updateField" placeholder="水果、零食、饮品..." />
+    </view>
+  </view>
+
+  <view class="section">
+    <view class="section-title">睡眠记录</view>
+    <view class="field">
+      <text class="label">昨晚睡眠时长 小时</text>
+      <input class="input" type="digit" value="{{record.sleep.hours}}" data-path="sleep.hours" bindinput="updateField" placeholder="例如 7.5" />
+    </view>
+    <view class="field">
+      <text class="label">睡眠质量</text>
+      <picker mode="selector" range="{{qualityOptions}}" value="{{qualityIndex}}" bindchange="updateQuality">
+        <view class="picker">{{record.sleep.quality || '请选择'}}</view>
+      </picker>
+    </view>
+  </view>
+
+  <button class="primary-btn save-btn" bindtap="saveRecord">保存今日记录</button>
+</view>

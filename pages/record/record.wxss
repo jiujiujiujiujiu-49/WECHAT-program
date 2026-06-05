@@ -1,0 +1,30 @@
+.page-head {
+  padding: 16rpx 4rpx 26rpx;
+}
+
+.date {
+  color: #557063;
+  font-size: 26rpx;
+}
+
+.heading {
+  margin-top: 8rpx;
+  color: #183527;
+  font-size: 42rpx;
+  font-weight: 800;
+}
+
+.switch-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 76rpx;
+  margin-bottom: 18rpx;
+  color: #405247;
+  font-size: 28rpx;
+}
+
+.save-btn {
+  margin-top: 12rpx;
+  margin-bottom: 32rpx;
+}

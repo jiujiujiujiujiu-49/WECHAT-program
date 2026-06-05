@@ -1,0 +1,13 @@
+{
+  "description": "Daily health and todo mini program MVP",
+  "miniprogramRoot": "./",
+  "compileType": "miniprogram",
+  "appid": "touristappid",
+  "projectname": "daily-health-miniapp",
+  "setting": {
+    "urlCheck": false,
+    "es6": true,
+    "postcss": true,
+    "minified": true
+  }
+}
