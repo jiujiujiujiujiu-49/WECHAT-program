@@ -1,67 +1,11 @@
 <view class="page">
   <view class="page-head">
     <view class="heading">历史记录</view>
-    <view class="subtext">每天一条数据，按日期查看。</view>
+    <view class="subtext">这里后续按日期查看过去记录。</view>
   </view>
 
-  <view wx:if="{{records.length === 0}}" class="section">
-    <view class="empty">还没有历史记录。先去填写今天吧。</view>
-  </view>
-
-  <view wx:else>
-    <view class="section">
-      <view class="section-title">选择日期</view>
-      <picker mode="selector" range="{{dateOptions}}" value="{{selectedIndex}}" bindchange="changeDate">
-        <view class="picker">{{selectedRecord.date}}</view>
-      </picker>
-    </view>
-
-    <view class="section">
-      <view class="section-title">{{selectedRecord.date}}</view>
-      <view class="summary-line">
-        <text>饮水</text>
-        <text>{{selectedRecord.water.amount}}ml / {{selectedRecord.water.target}}ml</text>
-      </view>
-      <view class="progress-track">
-        <view class="progress-fill" style="width: {{waterPercent}}%;"></view>
-      </view>
-      <view class="summary-line">
-        <text>健身</text>
-        <text>{{selectedRecord.workout.checked ? '已打卡' : '未打卡'}} {{selectedRecord.workout.type}} {{selectedRecord.workout.duration ? selectedRecord.workout.duration + '分钟' : ''}}</text>
-      </view>
-      <view class="summary-line">
-        <text>学习</text>
-        <text>{{selectedRecord.study.checked ? '已打卡' : '未打卡'}} {{selectedRecord.study.duration ? selectedRecord.study.duration + '分钟' : ''}}</text>
-      </view>
-      <view class="summary-line">
-        <text>睡眠</text>
-        <text>{{selectedRecord.sleep.hours}}小时 {{selectedRecord.sleep.quality}}</text>
-      </view>
-      <view class="summary-line">
-        <text>待办</text>
-        <text>{{todoSummary}}</text>
-      </view>
-    </view>
-
-    <view class="section">
-      <view class="section-title">学习内容</view>
-      <view class="paragraph">{{selectedRecord.study.content || '未填写'}}</view>
-    </view>
-
-    <view class="section">
-      <view class="section-title">饮食</view>
-      <view class="meal-row"><text>早餐</text><text>{{selectedRecord.meals.breakfast || '未填写'}}</text></view>
-      <view class="meal-row"><text>午餐</text><text>{{selectedRecord.meals.lunch || '未填写'}}</text></view>
-      <view class="meal-row"><text>晚餐</text><text>{{selectedRecord.meals.dinner || '未填写'}}</text></view>
-      <view class="meal-row"><text>加餐</text><text>{{selectedRecord.meals.snack || '未填写'}}</text></view>
-    </view>
-
-    <view class="section">
-      <view class="section-title">待办列表</view>
-      <view wx:if="{{selectedRecord.todos.length === 0}}" class="empty small">无待办</view>
-      <view wx:for="{{selectedRecord.todos}}" wx:key="id" class="todo-row">
-        <text class="{{item.done ? 'todo-done' : ''}}">{{item.done ? '✓' : '○'}} {{item.text}}</text>
-      </view>
-    </view>
+  <view class="section">
+    <view class="section-title">历史列表</view>
+    <view class="empty">{{emptyText}}</view>
   </view>
 </view>
